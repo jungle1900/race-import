@@ -1,7 +1,6 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
-const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = {
   entry: './src/index.js',
@@ -27,6 +26,12 @@ module.exports = {
           }
         }
       },
+      {
+        test: /\.(png|svg|jpg|gif)$/,
+        use: {
+          loader: 'file-loader'
+        }
+      },
     ]
   },
   plugins: [
@@ -34,10 +39,5 @@ module.exports = {
       template: 'src/index.html'
     }),
     new CleanWebpackPlugin('dist'),
-    new CopyWebpackPlugin([
-      { from: 'node_modules/race-pixi/assets', to: '' },
-    ], {
-      ignore: ['.DS_Store']
-    }),
   ]
 }
